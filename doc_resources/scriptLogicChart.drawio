@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" version="24.7.7">
+  <diagram name="Page-1" id="sEoU5FrCR8CX6Tnhi4PU">
+    <mxGraphModel dx="1760" dy="677" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t5NFKd32QJ181u4A3Eui-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="t5NFKd32QJ181u4A3Eui-1" target="t5NFKd32QJ181u4A3Eui-8" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t5NFKd32QJ181u4A3Eui-1" value="main_prototypes&lt;div&gt;1.数据获取功能&lt;/div&gt;&lt;div&gt;2.和券商互动功能&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="355" y="80" width="190" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="t5NFKd32QJ181u4A3Eui-2" value="&lt;div&gt;LSTM_Strategy_Backtest&lt;/div&gt;&lt;div&gt;这个类继承自 &lt;code&gt;backtesting&lt;/code&gt; 库中的 &lt;code&gt;Strategy&lt;/code&gt;，在回测中实例化 &lt;code&gt;LSTM_Strategy&lt;/code&gt;，获取交易信号并模拟交易过程。&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="270" width="190" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t5NFKd32QJ181u4A3Eui-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="t5NFKd32QJ181u4A3Eui-3" target="t5NFKd32QJ181u4A3Eui-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t5NFKd32QJ181u4A3Eui-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="t5NFKd32QJ181u4A3Eui-3" target="t5NFKd32QJ181u4A3Eui-8" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="270" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="145" y="215" />
+              <mxPoint x="451" y="215" />
+              <mxPoint x="451" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t5NFKd32QJ181u4A3Eui-3" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;LSTM_Strategy&lt;/span&gt;类&lt;/div&gt;&lt;div&gt;这个类负责调用模型进行预测，并返回买入或卖出信号。它既可以在生产环境中使用，也可以在回测环境中使用&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="50" y="70" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="t5NFKd32QJ181u4A3Eui-8" value="LSTM_tradingBot&lt;div&gt;这个类继承自 &lt;code&gt;tradingBot&lt;/code&gt;，在生产环境中使用，负责根据 &lt;code&gt;LSTM_Strategy&lt;/code&gt; 的信号与券商进行实际交易。&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="340" y="350" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-6" value="&lt;span style=&quot;font-weight: 400;&quot;&gt;main_prototypes&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-483" y="230" width="383" height="180" as="geometry">
+            <mxRectangle x="-380" y="300" width="140" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yApQz5SkaK6oBVA3V2_4-6" source="yApQz5SkaK6oBVA3V2_4-7" target="yApQz5SkaK6oBVA3V2_4-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-7" value="&lt;span style=&quot;color: rgb(97, 175, 239); background-color: rgb(40, 44, 52); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; white-space-collapse: preserve;&quot;&gt;tradingBot:&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="yApQz5SkaK6oBVA3V2_4-6">
+          <mxGeometry x="13" y="30" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-13" value="broker API&lt;div&gt;config log/config state&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="yApQz5SkaK6oBVA3V2_4-6">
+          <mxGeometry x="183" y="25" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-15" value="&lt;span style=&quot;font-weight: 400;&quot;&gt;main&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-483" y="460" width="573" height="180" as="geometry">
+            <mxRectangle x="-380" y="300" width="140" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yApQz5SkaK6oBVA3V2_4-15" source="yApQz5SkaK6oBVA3V2_4-17" target="yApQz5SkaK6oBVA3V2_4-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yApQz5SkaK6oBVA3V2_4-15" source="yApQz5SkaK6oBVA3V2_4-17" target="yApQz5SkaK6oBVA3V2_4-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-17" value="&lt;span style=&quot;color: rgb(97, 175, 239); background-color: rgb(40, 44, 52); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; white-space-collapse: preserve;&quot;&gt;Strategy&lt;/span&gt;&lt;span style=&quot;background-color: rgb(40, 44, 52); color: rgb(97, 175, 239); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; white-space-collapse: preserve;&quot;&gt;:&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="yApQz5SkaK6oBVA3V2_4-15">
+          <mxGeometry x="203" y="35" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-20" value="&lt;span style=&quot;color: rgb(97, 175, 239); background-color: rgb(40, 44, 52); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; white-space-collapse: preserve;&quot;&gt;Strategy_tradingBot&lt;/span&gt;&lt;span style=&quot;background-color: rgb(40, 44, 52); color: rgb(97, 175, 239); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; white-space-collapse: preserve;&quot;&gt;:&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="yApQz5SkaK6oBVA3V2_4-15">
+          <mxGeometry x="43" y="130" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-21" value="&lt;span style=&quot;color: rgb(97, 175, 239); background-color: rgb(40, 44, 52); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; white-space-collapse: preserve;&quot;&gt;Strategy_backtest&lt;/span&gt;&lt;span style=&quot;background-color: rgb(40, 44, 52); color: rgb(97, 175, 239); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; white-space-collapse: preserve;&quot;&gt;:&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="yApQz5SkaK6oBVA3V2_4-15">
+          <mxGeometry x="293" y="130" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.286;entryY=-0.022;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="yApQz5SkaK6oBVA3V2_4-15" source="yApQz5SkaK6oBVA3V2_4-17" target="yApQz5SkaK6oBVA3V2_4-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-30" value="&lt;div&gt;get_data&lt;/div&gt;predict&lt;div&gt;get_signal&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="yApQz5SkaK6oBVA3V2_4-15">
+          <mxGeometry x="413" y="20" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yApQz5SkaK6oBVA3V2_4-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.667;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="yApQz5SkaK6oBVA3V2_4-7" target="yApQz5SkaK6oBVA3V2_4-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-550" y="275" />
+              <mxPoint x="-550" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
