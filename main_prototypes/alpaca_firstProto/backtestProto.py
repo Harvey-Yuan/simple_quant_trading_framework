@@ -22,8 +22,8 @@ class RsiOci(Strategy):
   rsi_window = 14
 
   def init(self):
-    #括号里后面两个参数是传递给第一个函数的参数
-    #这个self.I是内置函数，每一行都要重新计算一次
+    # The last two parameters in the brackets are passed to the first function
+    # This self.I is a built-in function that needs to be recalculated for each row
     self.daily_rsi = self.I(talib.RSI,self.data.Close,self.rsi_window)
     # self.weekly_rsi = resample_apply(
     #   "W-FRI",talib.RSI,self.data.Close,self.rsi_window

@@ -1,11 +1,11 @@
-本文件夹就是线上策略的聚集地。里面的 script 直接可以运行
+This folder is the gathering place for online strategies. The scripts inside can be run directly.
 
-每一个文件夹都是一个单独的策略。文件夹内的主要内容包含 state，log，策略回测脚本，线上脚本
+Each folder is a separate strategy. The main content within each folder includes state, log, strategy backtest script, and online script.
 
-#### 策略回测脚本
+#### Strategy Backtest Script
 
-利用主要脚本进行回测，保证回测结果和上线后的主要脚本保持一致性。
+Use the main script for backtesting to ensure consistency between backtest results and the main script after going live.
 
-#### 线上脚本
+#### Online Script
 
-连接 broker API。直接设置定时任务之后就会正常运行。
+Connect to broker API. Will run normally after setting up scheduled tasks directly.

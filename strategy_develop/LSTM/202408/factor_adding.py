@@ -1,6 +1,5 @@
-
 import numpy as np
-import pandas as pd  # 假设您已经有了pandas库
+import pandas as pd  # Assuming you already have the pandas library
 from datetime import datetime
 import pytz
 import joblib
@@ -59,7 +58,7 @@ def calculate_atr(df, high_col='high', low_col='low', close_col='close', period=
     true_range = np.max(ranges, axis=1)
     atr = true_range.rolling(window=period).mean()
     df['ATR'] = atr
-    return true_range  # 返回真实范围（TR）供ADX计算使用
+    return true_range  # Return True Range (TR) for ADX calculation
 
 def calculate_adx(df, high_col='high', low_col='low', close_col='close', period=14):
     plus_dm = df[high_col].diff()
@@ -67,9 +66,9 @@ def calculate_adx(df, high_col='high', low_col='low', close_col='close', period=
     plus_dm[plus_dm < 0] = 0
     minus_dm[minus_dm < 0] = 0
     
-    # 获取单期TR并用于计算
-    tr = calculate_atr(df, high_col, low_col, close_col, 1)  # 此处现在会接收到TR的序列
-    tr_sum = tr.rolling(window=period).sum()  # 使用TR序列计算N期滚动和
+    # Get single period TR for calculation
+    tr = calculate_atr(df, high_col, low_col, close_col, 1)  # This will now receive a TR series
+    tr_sum = tr.rolling(window=period).sum()  # Use TR series to calculate N-period rolling sum
 
     plus_dm_sum = plus_dm.rolling(window=period).sum()
     minus_dm_sum = minus_dm.rolling(window=period).sum()
@@ -137,11 +136,11 @@ def get_data(ticker = 'QQQ'):
     
     data.index.name = 'Date'
     
-    ######################第二版
+    ###################### Version 2
     df = data.copy()
     vix_symbol = "^VIX"
 
-    # 使用 download 函数获取 VIX 数据
+    # Use download function to get VIX data
     vix_data = yf.download(vix_symbol)
     vix_data = vix_data.tz_localize('America/New_York')
     vix_data = vix_data[['Close']]
@@ -171,7 +170,7 @@ def get_data(ticker = 'QQQ'):
     USO['capital'] = USO['Close'] * USO['Volume']
     USO = USO[['Close','Volume','capital']]
     USO = USO.add_prefix('USO_')
-    # 将小时级别数据的索引转换为仅包含日期的格式
+    # Convert hourly data index to date-only format
     original_index = df.index
 
     df['date'] = df.index.date
@@ -184,8 +183,8 @@ def get_data(ticker = 'QQQ'):
     USO['date'] = USO.index.date
     vix_data['date'] = vix_data.index.date
 
-    # 使用新的日期列来合并数据，而不是直接使用索引
-    # 注意：这里假设vix_data已经有了一个叫做'date'的列
+    # Use new date column to merge data instead of using index directly
+    # Note: This assumes vix_data already has a column called 'date'
     hourly_data_merged = df.merge(vix_data, how='left', on='date')
     hourly_data_merged['VIX'] = hourly_data_merged['VIX'].fillna(0)
     hourly_data_merged = hourly_data_merged.merge(dividends, how='left', on='date')
@@ -208,23 +207,23 @@ def get_data(ticker = 'QQQ'):
 
     hourly_data_merged.index = original_index
 
-    # 如果不再需要date列，可以选择将其从合并后的数据框中移除
+    # If the date column is no longer needed, you can choose to remove it from the merged dataframe
     hourly_data_merged.drop(columns=['date'], inplace=True)
 
 
-    # 定义ETF列表
+    # Define ETF list
     etfs = ["SPY", "DIA", "IWM", "VTI"]
 
-    # 初始化结果字典
+    # Initialize result dictionary
     results = {}
 
-    # 遍历ETF列表，下载数据并计算
+    # Iterate through ETF list, download data and calculate
     for etf in etfs:
         data = yf.download(etf, period="2y", interval="1h",prepost=True)
         data = data[['Close','Volume','High','Low']]
         data.columns = ['close','volume','high','low']
-        window_short = 2  # 短期窗口
-        window_long = 10  # 长期窗口
+        window_short = 2  # Short-term window
+        window_long = 10  # Long-term window
         data['capital'] = data['close']*data['volume']
         data['capital_short'] = data['capital'].rolling(window=window_short).mean()
         data['capital_long'] = data['capital'].rolling(window=window_long).mean()

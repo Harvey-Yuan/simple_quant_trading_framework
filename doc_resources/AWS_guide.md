@@ -1,64 +1,64 @@
 - [AWS](#aws)
-  - [1.连接 linux](#1连接-linux)
-  - [2.配置远程 linux 的定时任务](#2配置远程-linux-的定时任务)
-  - [3.在远程桌面使用 python](#3在远程桌面使用-python)
-  - [4. linux 的文件交换](#4-linux-的文件交换)
+  - [1.Connect to linux](#1connect-to-linux)
+  - [2.Configure scheduled tasks on remote linux](#2configure-scheduled-tasks-on-remote-linux)
+  - [3.Use python on remote desktop](#3use-python-on-remote-desktop)
+  - [4. Linux file exchange](#4-linux-file-exchange)
 
 ## AWS
 
-AWS 文件夹下是远程 AWS 内的所有文件。该文档是关于使用云系统的简介。
+The AWS folder contains all files within the remote AWS. This document is an introduction to using the cloud system.
 
-#### 1.连接 linux
+#### 1.Connect to linux
 
-准备好 harvey_linux.pem 后
+After preparing harvey_linux.pem
 
 ```bash
 ssh -i harvey_linux.pem ec2-user@
 ```
 
-#### 2.配置远程 linux 的定时任务
+#### 2.Configure scheduled tasks on remote linux
 
-使用 crontab 命令设置定时任务。记得要开启定时任务访问权限
+Use the crontab command to set up scheduled tasks. Remember to enable scheduled task access permissions
 
 ```bash
 chmod +x /home/ec2-user/quant/script.py
 ```
 
-#### 3.在远程桌面使用 python
+#### 3.Use python on remote desktop
 
-使用 python3 和 pip3 来操作。
+Use python3 and pip3 for operations.
 
 ```bash
 pip3 install tensorflow-cpu --no-cache-dir
 ```
 
-#### 4. linux 的文件交换
+#### 4. Linux file exchange
 
-仅拷贝
+Copy only
 
 ```bash
 scp -i harvey_linux.pem -r /Users/harvey/Desktop/MY_porject/quant3/AWS/LINUX ec2-user@:/home/ec2-user/quant
 ```
 
-保持精确的副本
+Maintain exact replica
 
 ```bash
 rsync -avz --delete -e "ssh -i harvey_linux.pem" /Users/harvey/Desktop/quant2/AWS_remote_desktop/20240307/ ec2-user@:/home/ec2-user/quant/
 ```
 
-覆盖同名文件
+Overwrite files with same name
 
 ```bash
 rsync -avz -e "ssh -i harvey_linux.pem" /Users/harvey/Desktop/quant2/AWS_remote_desktop/20240307/ ec2-user@:/home/ec2-user/quant/
 ```
 
-覆盖同名文件但是跳过 state
+Overwrite files with same name but skip state
 
 ```bash
 rsync -avz --exclude '/state/\*' -e "ssh -i harvey_linux.pem" /Users/harvey/Desktop/quant2/AWS_remote_desktop/20240319/ ec2-user@:/home/ec2-user/quant/
 ```
 
-下载文件到本地
+Download files to local
 
 ```bash
 scp -i harvey_linux.pem -r ec2-user@:/home/ec2-user/quant/state /Users/harvey/Desktop/quant2/AWS_download

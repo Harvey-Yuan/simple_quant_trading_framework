@@ -1,6 +1,6 @@
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
-import pandas as pd  # 假设您已经有了pandas库
+import pandas as pd  # Assuming you already have the pandas library
 from keras.models import load_model
 from datetime import datetime
 import pytz
@@ -59,7 +59,7 @@ class LSTM_tradingBot(tradingBot):
     def execute_trading_strategy(self,predict_change_rate, filename=os.path.join(current_dir,'state/trading_state.pkl')):
         state = self.state
 
-        # 从状态中读取值
+        # Read values from state
         capital = state['capital']
         position = state['position']
         waiting_period = state['waiting_period']
@@ -75,11 +75,11 @@ class LSTM_tradingBot(tradingBot):
         if waiting_period > 0:
             waiting_period -= 1
         if waiting_period == 0 and position > 0 and predict_change_rate <= buy_threshold:
-            #平仓
+            # Close position
             current_close_price = self.get_quote('TQQQ')['last'][0]
             capital += abs(position) * current_close_price
             self.close_position('TQQQ')
-            action = action.join(f'清仓TQQQ;清仓价格{current_close_price}')
+            action = action.join(f'Close TQQQ position; Close price {current_close_price}')
             position = 0
 
         if waiting_period == 0 and position < 0 and predict_change_rate >= sell_threshold:
@@ -87,7 +87,7 @@ class LSTM_tradingBot(tradingBot):
             current_close_price = self.get_quote('SQQQ')['last'][0]
             capital += abs(position) * current_close_price
             self.close_position('SQQQ')
-            action = action.join(f'清仓SQQQ;清仓价格{current_close_price}')
+            action = action.join(f'Close SQQQ position; Close price {current_close_price}')
             position = 0
 
 
@@ -95,14 +95,14 @@ class LSTM_tradingBot(tradingBot):
             
             trade_signals = 1
             capital, position,current_close_price = buy_logic(capital, position)
-            action = action.join(f'买入TQQQ价值{capital},当前每股价格为{current_close_price};')
+            action = action.join(f'Buy TQQQ worth {capital}, current price per share is {current_close_price};')
             waiting_period = waiting_period_set
             trade_count += 1
         elif predict_change_rate < sell_threshold and position >= 0:
             
             trade_signals = -1
             capital, position,current_close_price = sell_logic(capital, position)
-            action = action.join(f'买入SQQQ价值{capital},当前每股价格为{current_close_price};')
+            action = action.join(f'Buy SQQQ worth {capital}, current price per share is {current_close_price};')
             waiting_period = waiting_period_set
             trade_count += 1
         else:
@@ -112,7 +112,7 @@ class LSTM_tradingBot(tradingBot):
         state['total_asset_list'].append(total_asset_value)
         state['capital_list'].append(capital)
 
-        # 更新状态
+        # Update state
         state.update({'capital': capital, 'position': position, 'waiting_period': waiting_period, 'trade_count': trade_count})
         self.save_state(state)
         log_info = {
@@ -126,17 +126,17 @@ class LSTM_tradingBot(tradingBot):
 
 
     def buy_logic(self,capital, position):
-        print('执行买入逻辑')
-        if position < 0:  # 如果当前持有空头仓位，先平仓
+        print('Execute buy logic')
+        if position < 0:  # If currently holding short position, close it first
             try:
-                # 平掉空头仓位
+                # Close short position
                 self.close_position('SQQQ')
-                print(f"平掉空头仓位: {abs(position)} 股")
+                print(f"Close short position: {abs(position)} shares")
                 position = 0
             except Exception as e:
-                print(f"平仓失败: {e}")
+                print(f"Close position failed: {e}")
 
-        # 计算可以购买的股数
+        # Calculate the number of shares that can be purchased
         current_close_price = self.get_quote('TQQQ')['last'][0]
         shares_to_buy = float(capital / current_close_price)
         if shares_to_buy > 0 and position == 0:
@@ -144,22 +144,22 @@ class LSTM_tradingBot(tradingBot):
                 response = self.create_order('TQQQ',shares_to_buy,'buy',time_in_force='day')
                 capital -= shares_to_buy * current_close_price
                 position += shares_to_buy
-                print(f"买入 {shares_to_buy} 股")
+                print(f"Buy {shares_to_buy} shares")
             except Exception as e:
-                print(f"买入失败: {e}")
+                print(f"Buy failed: {e}")
         return capital, position,current_close_price
 
     def sell_logic(self,capital, position):
-        print('执行卖出逻辑')
-        if position > 0:  # 如果当前持有多头仓位，先平仓
+        print('Execute sell logic')
+        if position > 0:  # If currently holding long position, close it first
             try:
                 self.close_position('TQQQ')
-                print(f"平掉多头仓位: {position} 股")
+                print(f"Close long position: {position} shares")
                 position = 0
             except Exception as e:
-                print(f"平仓失败: {e}")
+                print(f"Close position failed: {e}")
 
-        # 计算可以卖出的股数（假设卖出等同于开立空头仓位）
+        # Calculate the number of shares that can be sold (assuming selling is equivalent to opening short position)
         current_close_price = self.get_quote('SQQQ')['last'][0]
         shares_to_sell = float(capital / current_close_price)
         if shares_to_sell > 0 and position == 0:
@@ -167,9 +167,9 @@ class LSTM_tradingBot(tradingBot):
                 response = self.create_order('SQQQ',shares_to_sell,'buy',time_in_force='day')
                 capital -= shares_to_sell * current_close_price
                 position -= shares_to_sell
-                print(f"卖出（或开空） {shares_to_sell} 股")
+                print(f"Sell (or open short) {shares_to_sell} shares")
             except Exception as e:
-                print(f"卖出失败: {e}")
+                print(f"Sell failed: {e}")
         return capital, position,current_close_price
 
 
@@ -179,7 +179,7 @@ class LSTM_tradingBot(tradingBot):
 
         df = data
         features = df.drop(['close', 'open', 'high', 'low'], axis=1)
-        labels = df[['close']]  # 以'close'列作为示例标签
+        labels = df[['close']]  # Use 'close' column as example label
 
         scaled_features = scaler_features.transform(features)
 
@@ -192,17 +192,17 @@ class LSTM_tradingBot(tradingBot):
         last_time_index = df.index[-1]
         predicted_time = last_time_index + pd.Timedelta(hours=1)
 
-        print(f"预测的y值对应的时间点是: {predicted_time}")
-        print(f"预测的y值是: {predicted_y}")
+        print(f"The time point corresponding to the predicted y value is: {predicted_time}")
+        print(f"The predicted y value is: {predicted_y}")
         
         return float(predicted_y.squeeze())
 
 
-# 例如，使用APScheduler定时运行
+# For example, use APScheduler for scheduled execution
 
 
     def job_function(self):
-                # 加载模型
+                # Load model
         model = load_model(self.model_path)
         components_dict = joblib.load(self.component_path)
 
@@ -214,14 +214,14 @@ class LSTM_tradingBot(tradingBot):
         lastest_date = df.index[-1]
         lastest_price = df.iloc[-1,:]['close']
         
-        # 验证是否为最新数据
+        # Verify if data is up-to-date
         ny_tz = pytz.timezone('America/New_York')
         ny_time = datetime.now(ny_tz)
         other_time = lastest_date
         hours_difference = (ny_time - other_time).total_seconds() / 3600
         if hours_difference > 0.4:
             self.log_state(None)
-            #return '数据不够新'
+            #return 'Data is not fresh enough'
         else:
             pass
         
@@ -229,8 +229,8 @@ class LSTM_tradingBot(tradingBot):
 
         predict_price = self.predict(df,scaler_features = scaler_features,scaler_label = scaler_label,model = model,time_step=16)
         
-        # 获取最新的predict_change_rate和current_close_price
-        # 这里需要您根据实际情况来获取这些值
+        # Get the latest predict_change_rate and current_close_price
+        # You need to get these values according to actual situation
         predict_change_rate = predict_price/lastest_price - 1
         print('predict_change_rate',predict_change_rate)
         current_close_price = lastest_price
@@ -268,7 +268,7 @@ class LSTM_Strategy_Backtest(Strategy):
         current_close_price = self.data['close'][-1]
         predict_change_rate = predict_price / current_close_price - 1
 
-        # 使用提取的交易逻辑函数
+        # Use extracted trading logic function
         self.execute_trading_logic(predict_change_rate, current_close_price)
 
     def execute_trading_logic(self, predict_change_rate, current_close_price):
@@ -280,26 +280,26 @@ class LSTM_Strategy_Backtest(Strategy):
         if self.waiting_period == 0 and self.position > 0 and predict_change_rate <= self.buy_threshold:
             self.sell(size=abs(self.position))
             self.position = 0
-            action = f'清仓TQQQ;清仓价格{current_close_price}'
+            action = f'Close TQQQ position; Close price {current_close_price}'
 
         elif self.waiting_period == 0 and self.position < 0 and predict_change_rate >= self.sell_threshold:
             self.buy(size=abs(self.position))
             self.position = 0
-            action = f'清仓SQQQ;清仓价格{current_close_price}'
+            action = f'Close SQQQ position; Close price {current_close_price}'
 
         elif predict_change_rate > self.buy_threshold and self.position <= 0:
             self.buy(size=0.1 * self.capital / current_close_price)
             self.position += 0.1 * self.capital / current_close_price
             self.waiting_period = self.waiting_period_set
             self.trade_count += 1
-            action = f'买入TQQQ价值{0.1 * self.capital},当前每股价格为{current_close_price};'
+            action = f'Buy TQQQ worth {0.1 * self.capital}, current price per share is {current_close_price};'
 
         elif predict_change_rate < self.sell_threshold and self.position >= 0:
             self.sell(size=0.1 * self.capital / current_close_price)
             self.position -= 0.1 * self.capital / current_close_price
             self.waiting_period = self.waiting_period_set
             self.trade_count += 1
-            action = f'买入SQQQ价值{0.1 * self.capital},当前每股价格为{current_close_price};'
+            action = f'Buy SQQQ worth {0.1 * self.capital}, current price per share is {current_close_price};'
 
         # Log the action
         self.save_log({'log': action})

@@ -1,32 +1,32 @@
-## 目录
+## Table of Contents
 
-- [目录](#目录)
-- [文件树介绍](#文件树介绍)
-- [工作流](#工作流)
-- [附录文件](#附录文件)
-  - [AWS 部署](#aws-部署)
+- [Table of Contents](#table-of-contents)
+- [File Tree Introduction](#file-tree-introduction)
+- [Workflow](#workflow)
+- [Appendix Files](#appendix-files)
+  - [AWS Deployment](#aws-deployment)
 
-## 文件树介绍
+## File Tree Introduction
 
-| 文件夹名           | 描述                                                                              |
-| ------------------ | --------------------------------------------------------------------------------- |
-| `doc_resources`    | 所有用于展示和记录文档的储存地点。                                                |
-| `wheels`           | 一些公共的 API 和 config 储存的地方，database 的 API 开发完成后会移动到 wheels 中 |
-| `UI`               | 展示 UI 的地方                                                                    |
-| `main`             | 是策略主程序运行的地方。                                                          |
-| `main_prototypes`  | 预先编写好主程序的原型。简化主程序逻辑。                                          |
-| `data_develop`     | 开发新数据获取和特征工程的文件                                                    |
-| `model_develop`    | 开发机器学习/深度学习模型的地方                                                   |
-| `strategy_develop` | 开发策略，回测策略的地方                                                          |
+| Folder Name        | Description                                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `doc_resources`    | Storage location for all display and documentation files.                                                    |
+| `wheels`           | Storage place for common APIs and config, database API will be moved to wheels after development is complete |
+| `UI`               | Place to display UI                                                                                          |
+| `main`             | Where the strategy main program runs.                                                                        |
+| `main_prototypes`  | Pre-written prototypes of the main program. Simplifies main program logic.                                   |
+| `data_develop`     | Files for developing new data acquisition and feature engineering                                            |
+| `model_develop`    | Place to develop machine learning/deep learning models                                                       |
+| `strategy_develop` | Place to develop strategies and backtest strategies                                                          |
 
-## 工作流
+## Workflow
 
-1.首先是开发流程，可以在 data_develop 中开发数据，在 model_develop 中开发模型，或者是在 strategy_develop 中开发策略。
+1. First is the development process, you can develop data in data_develop, develop models in model_develop, or develop strategies in strategy_develop.
 
-2.其次是测试上线。main_prototypes 中集合了策略的原型，以其为基础，可以开发 main 文件夹中的策略。main 中的策略完成后，直接整个文件夹部署到 AWS，为每一个策略设置定时任务。关于其次是测试上线。main_prototypes 开发流程可以看[main_prototypes 说明](main_prototypes/prototypes.md),main 开发可以看[main 说明](main/main.md)
+2. Next is testing and deployment. main_prototypes integrates strategy prototypes, and based on these, you can develop strategies in the main folder. After the strategies in main are completed, deploy the entire folder directly to AWS and set up scheduled tasks for each strategy. For the development process, you can see [main_prototypes documentation](main_prototypes/prototypes.md), and for main development, see [main documentation](main/main.md)
 
-## 附录文件
+## Appendix Files
 
-### AWS 部署
+### AWS Deployment
 
-如果对部署 AWS 任务有问题，可以看[AWS 使用指南](doc_resources/AWS_guide.md)
+If you have questions about deploying AWS tasks, you can see [AWS Usage Guide](doc_resources/AWS_guide.md)

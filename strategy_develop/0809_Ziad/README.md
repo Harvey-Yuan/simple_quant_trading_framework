@@ -1,3 +1,3 @@
-### 简介
+### Introduction
 
-本策略交易标的是 BTC-USD
+The trading target of this strategy is BTC-USD
